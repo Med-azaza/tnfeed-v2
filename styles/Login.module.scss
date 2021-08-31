@@ -2,6 +2,16 @@
 .container {
   height: 100vh;
   width: 100vw;
-  @include center(center, center, row);
-  background-color: $primary;
+  @include center(center, center, column);
+  background-image: url("/layered-waves.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 0 -220px;
+  form {
+    width: 400px;
+    height: 450px;
+    background-color: rgb(118, 54, 143);
+    @include center(center, center, column);
+    border-radius: 10px;
+  }
 }
