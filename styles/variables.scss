@@ -1,0 +1,7 @@
+$primary: #a975ff;
+@mixin center($a, $b, $c) {
+  display: flex;
+  align-items: $a;
+  justify-content: $b;
+  flex-direction: $c;
+}

@@ -1,0 +1,49 @@
+@import "variables.scss";
+.container {
+  background-color: $primary;
+  width: 100vw;
+  height: 100vh;
+  @include center(center, center, column);
+  header {
+    height: 50%;
+    width: 100%;
+    @include center(center, center, column);
+    color: white;
+    font-size: 2.5em;
+    font-weight: 600;
+  }
+  .btns {
+    background-color: white;
+    border-radius: 0 70px 0 0;
+    @include center(center, center, row);
+    height: 50%;
+    width: 100%;
+    button {
+      margin: 0 50px;
+      width: 200px;
+      height: 60px;
+      font-size: 2em;
+      font-weight: 500;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s;
+      &:hover {
+        transform: scale(1.05, 1.05);
+      }
+    }
+    button:nth-child(1) {
+      border: 1px solid $primary;
+      background-color: transparent;
+      color: $primary;
+      &:hover {
+        color: white;
+        background-color: $primary;
+      }
+    }
+    button:nth-child(2) {
+      border: 0;
+      background-color: $primary;
+      color: white;
+    }
+  }
+}
