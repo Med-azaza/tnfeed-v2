@@ -10,7 +10,7 @@ export default function Home() {
     <div className={styles.container}>
       <MainHeader title="Tn Feed - first tunisian social media platform" />
       <header>
-        <span>WELCOME TO</span>
+        <span>qwertyuio</span>
         <Image src="/logo.svg" width={350} height={150} />
       </header>
       <div className={styles.btns}>
