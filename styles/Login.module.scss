@@ -16,7 +16,6 @@
     position: relative;
     button {
       color: #fff;
-      font-weight: 200;
     }
     .backBtn {
       position: absolute;
@@ -28,6 +27,7 @@
       height: 50px;
       border-radius: 6px;
       margin-top: 50px;
+      font-weight: 300;
       //#cc2b5e → #753a88
       background: linear-gradient(to right, #fec72c, #ff135e);
       background-size: 200% auto;
@@ -35,6 +35,12 @@
       &:hover {
         background-position: right center;
       }
+    }
+    .loadingScreen {
+      width: 100%;
+      height: 100%;
+      @include center(center, center, row);
+      color: #fff;
     }
   }
 }
