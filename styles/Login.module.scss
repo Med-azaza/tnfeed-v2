@@ -28,6 +28,7 @@
       border-radius: 6px;
       margin-top: 50px;
       font-weight: 300;
+      font-size: 1.3em;
       //#cc2b5e → #753a88
       background: linear-gradient(to right, #fec72c, #ff135e);
       background-size: 200% auto;
@@ -41,6 +42,23 @@
       height: 100%;
       @include center(center, center, row);
       color: #fff;
+    }
+  }
+  .alert {
+    width: 600px;
+  }
+  @media screen and (max-width: 425px) {
+    background-size: fill;
+    background-position: initial;
+    form {
+      width: 95%;
+      background-color: rgba(118, 54, 143, 0.815);
+      .submitBtn {
+        font-size: 1.5em;
+      }
+    }
+    .alert {
+      width: 95vw;
     }
   }
 }

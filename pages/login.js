@@ -19,7 +19,7 @@ import { useCookies } from "react-cookie";
 
 const useStyles = makeStyles({
   root: {
-    width: 350,
+    width: "90%",
     marginBottom: 20,
     "& .MuiInput-underline:before": {
       borderColor: "white",

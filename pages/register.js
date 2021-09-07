@@ -18,7 +18,7 @@ import { useRouter } from "next/router";
 
 const useStyles = makeStyles({
   root: {
-    width: 350,
+    width: "90%",
     marginBottom: 20,
     "& .MuiInput-underline:before": {
       borderColor: "white",
