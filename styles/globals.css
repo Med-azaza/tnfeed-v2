@@ -3,8 +3,6 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: "Poppins", sans-serif !important;
-  overflow: hidden;
 }
 
 a {
@@ -14,4 +12,5 @@ a {
 
 * {
   box-sizing: border-box;
+  font-family: "Poppins", sans-serif !important;
 }
