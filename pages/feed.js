@@ -95,9 +95,18 @@ export default function Feed() {
             </ul>
           </section>
         </div>
-        <div>
+        <div className={styles.main}>
           {nav === "home" ? (
-            <span>homepage</span>
+            <div className={styles.createPost}>
+              <Avatar variant="rounded" className={classes.purple}>
+                {userData.name.charAt(0).toUpperCase()}
+              </Avatar>
+              <input
+                type="text"
+                placeholder={`What's new, ${userData.name.split(" ")[0]}?`}
+              />
+              <Button color="inherit">Post it!</Button>
+            </div>
           ) : nav === "profile" ? (
             <span>profile</span>
           ) : (

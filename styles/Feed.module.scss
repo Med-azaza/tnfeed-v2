@@ -19,19 +19,24 @@
     padding: 0 30px;
     .searchbar {
       @include center(center, center, row);
-      width: 300px;
+      // width: 300px;
       height: 40px;
       border-radius: 8px;
       background-color: #f4f6fa;
       color: $primary;
       margin-right: 60px;
       opacity: 0.8;
+      padding: 0 10px;
       input {
         background-color: transparent;
-        width: 80%;
+        width: 200px;
         height: 70%;
         border: 0;
         outline: 0;
+        transition: all 0.3s;
+        &:focus {
+          width: 350px;
+        }
       }
     }
   }
@@ -66,36 +71,67 @@
           }
         }
       }
-    }
-    .navigation {
-      padding: 20px;
-      height: 250px;
-      ul {
-        height: 100%;
-        list-style-type: none;
-        @include center(center, center, column);
-        li {
-          height: 30%;
-          width: 100%;
-          border-bottom: 1px solid #f6f7f8;
-          @include center(center, flex-start, row);
-          font-weight: 500;
-          color: #54687f;
-          column-gap: 20px;
-          cursor: pointer;
-          transition: all 0.3s;
-          padding-left: 10px;
-          &:hover {
-            color: $primary;
+      .navigation {
+        padding: 20px;
+        height: 250px;
+        ul {
+          height: 100%;
+          list-style-type: none;
+          @include center(center, center, column);
+          li {
+            height: 30%;
+            width: 100%;
+            border-bottom: 1px solid #f6f7f8;
+            @include center(center, flex-start, row);
+            font-weight: 500;
+            color: #54687f;
+            column-gap: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            padding-left: 10px;
+            &:hover {
+              color: $primary;
+            }
+            &.selected {
+              background-color: #fcfbfc;
+              border-left: 1px solid $primary;
+              color: $primary;
+            }
           }
-          &.selected {
-            background-color: #fcfbfc;
-            border-left: 1px solid $primary;
-            color: $primary;
+          li:last-child {
+            border-bottom: 0;
           }
         }
-        li:last-child {
-          border-bottom: 0;
+      }
+    }
+    .main {
+      @include center(center, flex-start, column);
+      & > div {
+        margin-top: 30px;
+      }
+      .createPost {
+        @include center(center, space-between, row);
+        padding: 0 15px;
+        width: 90%;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+        height: 75px;
+        button {
+          color: #fff;
+          background-color: $primary;
+          border-radius: 8px;
+          text-transform: none;
+        }
+        input {
+          width: 70%;
+          height: 80%;
+          outline: none;
+          border: 0;
+          color: #000;
+          &::placeholder {
+            color: rgba(0, 0, 0, 0.185);
+          }
         }
       }
     }
