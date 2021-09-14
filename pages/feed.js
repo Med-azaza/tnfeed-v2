@@ -34,6 +34,7 @@ export default function Feed() {
   const token = cookies.token;
 
   const fetchPosts = () => {
+    setPostLoading(true);
     fetch(`${process.env.NEXT_PUBLIC_BASE_API}post`, {
       method: "GET",
       headers: {
@@ -116,7 +117,10 @@ export default function Feed() {
             <ul>
               <li
                 className={nav === "home" && styles.selected}
-                onClick={() => setNav("home")}
+                onClick={() => {
+                  setNav("home");
+                  fetchPosts();
+                }}
               >
                 <HomeOutlined /> Home
               </li>
@@ -162,10 +166,13 @@ export default function Feed() {
                   posts.map((post) => (
                     <Post
                       key={post._id}
+                      id={post._id}
                       likers={post.likers}
                       content={post.content}
                       name={post.ownerName}
                       date={post.date}
+                      userId={userData._id}
+                      token={token}
                     />
                   ))
                 )}

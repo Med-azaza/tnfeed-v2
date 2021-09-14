@@ -9,7 +9,7 @@ import {
   Menu,
   MenuItem,
 } from "@material-ui/core";
-import { MoreHoriz } from "@material-ui/icons";
+import { MoreHoriz, Favorite, FavoriteBorder } from "@material-ui/icons";
 
 const useStyles = makeStyles(() => ({
   purple: {
@@ -17,9 +17,21 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function Post({ name, content, date, likers, comments }) {
+export default function Post({
+  name,
+  content,
+  date,
+  likers,
+  comments,
+  userId,
+  id,
+  token,
+}) {
   const [anchor, setAnchor] = useState(null);
   const [dateStr, setDateStr] = useState("");
+  const [liked, setLiked] = useState(false);
+  const [likeProc, setLikeProc] = useState(false);
+  const [likeCounter, setLikeCounter] = useState(likers.length);
 
   const classes = useStyles();
 
@@ -45,8 +57,30 @@ export default function Post({ name, content, date, likers, comments }) {
     }
     return date;
   };
+  const likeHandler = () => {
+    setLikeProc(true);
+    liked ? setLikeCounter(likeCounter - 1) : setLikeCounter(likeCounter + 1);
+    fetch(`${process.env.NEXT_PUBLIC_BASE_API}like/${id}`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          setLiked(!liked);
+          setLikeProc(false);
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
   useEffect(() => {
     setDateStr(dateFormat(date));
+    if (likers.indexOf(userId) > -1) {
+      setLiked(true);
+    }
   }, []);
 
   return (
@@ -84,6 +118,24 @@ export default function Post({ name, content, date, likers, comments }) {
         </React.Fragment>
       </header>
       <main>{content}</main>
+      <footer>
+        {!liked ? (
+          <IconButton onClick={likeHandler} disabled={likeProc ? true : false}>
+            <FavoriteBorder
+              className={likeProc ? styles.likeBtnDisabled : styles.likeBtn}
+              color="inherit"
+            />
+          </IconButton>
+        ) : (
+          <IconButton onClick={likeHandler} disabled={likeProc ? true : false}>
+            <Favorite
+              className={likeProc ? styles.likeBtnDisabled : styles.likeBtn}
+              color="inherit"
+            />
+          </IconButton>
+        )}
+        {likeCounter}
+      </footer>
     </div>
   );
 }
