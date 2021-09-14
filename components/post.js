@@ -19,6 +19,7 @@ const useStyles = makeStyles(() => ({
 
 export default function Post({ name, content, date, likers, comments }) {
   const [anchor, setAnchor] = useState(null);
+  const [dateStr, setDateStr] = useState("");
 
   const classes = useStyles();
 
@@ -44,6 +45,9 @@ export default function Post({ name, content, date, likers, comments }) {
     }
     return date;
   };
+  useEffect(() => {
+    setDateStr(dateFormat(date));
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -56,7 +60,7 @@ export default function Post({ name, content, date, likers, comments }) {
           </div>
           <div>
             <p>{name}</p>
-            <span>{dateFormat(date)}</span>
+            <span>{dateStr}</span>
           </div>
         </div>
         <React.Fragment>
