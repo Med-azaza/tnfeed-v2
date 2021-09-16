@@ -13,6 +13,7 @@ import {
 } from "@material-ui/icons";
 import MainHeader from "../components/mainHeader";
 import Post from "../components/post";
+import Profile from "../components/profile";
 
 const useStyles = makeStyles(() => ({
   purple: {
@@ -105,9 +106,16 @@ export default function Feed() {
       <div className={styles.mainGrid}>
         <div className={styles.menu}>
           <section className={styles.username}>
-            <Avatar className={classes.purple}>
-              {userData.name.charAt(0).toUpperCase()}
-            </Avatar>
+            {userData.avatar === "" ? (
+              <Avatar className={classes.purple}>
+                {userData.name.charAt(0).toUpperCase()}
+              </Avatar>
+            ) : (
+              <Avatar
+                src={`${process.env.NEXT_PUBLIC_BASE_API}media/${userData.avatar}`}
+              />
+            )}
+
             <p>
               <span>{userData.name}</span> <br />
               <span>{userData.username}</span>
@@ -179,7 +187,7 @@ export default function Feed() {
               </div>
             </React.Fragment>
           ) : nav === "profile" ? (
-            <span>profile</span>
+            <Profile token={token} />
           ) : (
             <span>
               settings <br />{" "}
