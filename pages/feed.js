@@ -197,6 +197,7 @@ export default function Feed() {
                       date={post.date}
                       userId={userData._id}
                       token={token}
+                      avatar={post.ownerAvatar}
                     />
                   ))
                 )}

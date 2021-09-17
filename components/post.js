@@ -26,6 +26,7 @@ export default function Post({
   userId,
   id,
   token,
+  avatar,
 }) {
   const [anchor, setAnchor] = useState(null);
   const [dateStr, setDateStr] = useState("");
@@ -88,9 +89,16 @@ export default function Post({
       <header>
         <div>
           <div>
-            <Avatar variant="rounded" className={classes.purple}>
-              {name.charAt(0).toUpperCase()}
-            </Avatar>
+            {avatar ? (
+              <Avatar
+                variant="rounded"
+                src={`${process.env.NEXT_PUBLIC_BASE_API}media/${avatar}`}
+              />
+            ) : (
+              <Avatar variant="rounded" className={classes.purple}>
+                {name.charAt(0).toUpperCase()}
+              </Avatar>
+            )}
           </div>
           <div>
             <p>{name}</p>

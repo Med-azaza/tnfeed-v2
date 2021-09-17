@@ -1,7 +1,13 @@
 import { useState, useEffect } from "react";
+import { useCookies } from "react-cookie";
+import { useRouter } from "next/router";
 
 export default function Profile({ token }) {
+  const [cookies, setCookie, removeCookie] = useCookies(["token"]);
   const [image, setImage] = useState(null);
+
+  const router = useRouter();
+
   const uploadHandler = () => {
     console.log(image);
     console.log(token);
@@ -16,10 +22,15 @@ export default function Profile({ token }) {
     })
       .then((res) => {
         if (res.status === 200) {
-          alert("updated");
+          return res.json();
         } else {
           alert("error");
         }
+      })
+      .then((data) => {
+        setCookie("token", data.token, { path: "/" });
+        alert("profile pic updated");
+        router.reload();
       })
       .catch((err) => {
         console.error(err);
