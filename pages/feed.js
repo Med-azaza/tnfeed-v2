@@ -3,6 +3,7 @@ import styles from "../styles/Feed.module.scss";
 import { useCookies } from "react-cookie";
 import { CircularProgress, Avatar, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import Skeleton from "@mui/material/Skeleton";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import {
@@ -169,7 +170,22 @@ export default function Feed() {
               </div>
               <div className={styles.posts}>
                 {postLoading ? (
-                  <CircularProgress size={65} color="inherit" />
+                  <div className={styles.skeleton}>
+                    <Skeleton variant="circular" width={50} height={50} />
+                    <Skeleton
+                      variant="rectangular"
+                      animation="wave"
+                      height={150}
+                      width={"80%"}
+                    />
+                    <Skeleton variant="circular" width={50} height={50} />
+                    <Skeleton
+                      variant="rectangular"
+                      animation="wave"
+                      height={150}
+                      width={"80%"}
+                    />
+                  </div>
                 ) : (
                   posts.map((post) => (
                     <Post

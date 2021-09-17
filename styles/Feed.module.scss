@@ -150,6 +150,13 @@
       color: $primary;
       width: 100%;
       @include center(center, flex-start, column);
+      .skeleton {
+        justify-content: flex-start;
+        width: 90%;
+        * {
+          margin-bottom: 10px;
+        }
+      }
     }
   }
 }
