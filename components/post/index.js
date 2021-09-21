@@ -1,4 +1,4 @@
-import styles from "../styles/Post.module.scss";
+import styles from "./Post.module.scss";
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {

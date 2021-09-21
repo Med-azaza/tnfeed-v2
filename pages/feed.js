@@ -15,6 +15,7 @@ import {
 import MainHeader from "../components/mainHeader";
 import Post from "../components/post";
 import Profile from "../components/profile";
+import Topbar from "../components/topbar";
 
 const useStyles = makeStyles(() => ({
   purple: {
@@ -97,13 +98,7 @@ export default function Feed() {
   ) : (
     <div className={styles.container}>
       <MainHeader title="TnFeed - Home" />
-      <nav>
-        <Image src="/logo.svg" width={200} height={50} />
-        <div className={styles.searchbar}>
-          <SearchRounded />
-          <input type="text" placeholder="Search" />
-        </div>
-      </nav>
+      <Topbar setLoading={setLoading} />
       <div className={styles.mainGrid}>
         <div className={styles.menu}>
           <section className={styles.username}>
@@ -127,8 +122,10 @@ export default function Feed() {
               <li
                 className={nav === "home" && styles.selected}
                 onClick={() => {
-                  setNav("home");
-                  fetchPosts();
+                  if (nav !== "home") {
+                    setNav("home");
+                    fetchPosts();
+                  }
                 }}
               >
                 <HomeOutlined /> Home
@@ -208,15 +205,6 @@ export default function Feed() {
           ) : (
             <span>
               settings <br />{" "}
-              <Button
-                onClick={() => {
-                  setLoading(true);
-                  removeCookie("token");
-                  router.push("/");
-                }}
-              >
-                Log out
-              </Button>
             </span>
           )}
         </div>

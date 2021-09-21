@@ -11,36 +11,6 @@
   min-height: 100vh;
   background-color: #f9fbfc;
   overflow-x: hidden;
-  nav {
-    width: 100%;
-    background-color: #fff;
-    height: 80px;
-    border-bottom: 1px solid #f3f3f7;
-    @include center(center, space-between, row);
-    padding: 0 30px;
-    .searchbar {
-      @include center(center, center, row);
-      // width: 300px;
-      height: 40px;
-      border-radius: 8px;
-      background-color: #f4f6fa;
-      color: $primary;
-      margin-right: 60px;
-      opacity: 0.8;
-      padding: 0 10px;
-      input {
-        background-color: transparent;
-        width: 200px;
-        height: 70%;
-        border: 0;
-        outline: 0;
-        transition: all 0.3s;
-        &:focus {
-          width: 350px;
-        }
-      }
-    }
-  }
   .mainGrid {
     width: 100vw;
     display: grid;
