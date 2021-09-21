@@ -1,0 +1,41 @@
+@import "./variables.scss";
+.container {
+  width: 100%;
+  background-color: #fff;
+  height: 80px;
+  border-bottom: 1px solid #f3f3f7;
+  @include center(center, space-between, row);
+  padding: 0 30px;
+  & > div {
+    @include center(center, center, row);
+    button {
+      margin-left: 15px;
+      text-transform: capitalize;
+      color: #fff;
+      background-color: $primary;
+      &:hover {
+        color: $primary;
+      }
+    }
+  }
+  .searchbar {
+    @include center(center, center, row);
+    height: 40px;
+    border-radius: 8px;
+    background-color: #f4f6fa;
+    color: $primary;
+    opacity: 0.8;
+    padding: 0 10px;
+    input {
+      background-color: transparent;
+      width: 200px;
+      height: 70%;
+      border: 0;
+      outline: 0;
+      transition: all 0.3s;
+      &:focus {
+        width: 350px;
+      }
+    }
+  }
+}
