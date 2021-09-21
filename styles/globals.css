@@ -12,3 +12,14 @@ a {
   margin: 0;
   /* overflow-x: hidden; */
 }
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+::-webkit-scrollbar-thumb {
+  width: 5px;
+  background-color: rgba(128, 128, 128, 0.377);
+  border-radius: 5px;
+}
