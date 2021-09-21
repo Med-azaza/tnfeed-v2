@@ -6,16 +6,13 @@ import { makeStyles } from "@material-ui/core/styles";
 import Skeleton from "@mui/material/Skeleton";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import {
-  SearchRounded,
-  HomeOutlined,
-  PersonOutlineOutlined,
-  SettingsOutlined,
-} from "@material-ui/icons";
 import MainHeader from "../components/mainHeader";
 import Post from "../components/post";
 import Profile from "../components/profile";
 import Topbar from "../components/topbar";
+import Sidebar from "../components/sidebar";
+import Navbar from "../components/navbar";
+import Share from "../components/share";
 
 const useStyles = makeStyles(() => ({
   purple: {
@@ -29,7 +26,6 @@ export default function Feed() {
   const [postLoading, setPostLoading] = useState(true);
   const [userData, setUserData] = useState({});
   const [nav, setNav] = useState("home");
-  const [postText, setPostText] = useState("");
   const [posts, setPosts] = useState([]);
 
   const router = useRouter();
@@ -48,24 +44,6 @@ export default function Feed() {
       .then((data) => {
         setPosts(data);
         setPostLoading(false);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  };
-  const postHandle = () => {
-    setPostLoading(true);
-    fetch(`${process.env.NEXT_PUBLIC_BASE_API}posts/new`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({ content: postText }),
-    })
-      .then((response) => {
-        setPostText("");
-        fetchPosts();
       })
       .catch((err) => {
         console.error(err);
@@ -91,6 +69,11 @@ export default function Feed() {
       });
     fetchPosts();
   }, []);
+  useEffect(() => {
+    if (nav === "home") {
+      fetchPosts();
+    }
+  }, [nav]);
   return loading ? (
     <div className={styles.loadingScreen}>
       <CircularProgress size={80} color="inherit" />
@@ -100,71 +83,17 @@ export default function Feed() {
       <MainHeader title="TnFeed - Home" />
       <Topbar setLoading={setLoading} />
       <div className={styles.mainGrid}>
-        <div className={styles.menu}>
-          <section className={styles.username}>
-            {userData.avatar === "" ? (
-              <Avatar className={classes.purple}>
-                {userData.name.charAt(0).toUpperCase()}
-              </Avatar>
-            ) : (
-              <Avatar
-                src={`${process.env.NEXT_PUBLIC_BASE_API}media/${userData.avatar}`}
-              />
-            )}
-
-            <p>
-              <span>{userData.name}</span> <br />
-              <span>{userData.username}</span>
-            </p>
-          </section>
-          <section className={styles.navigation}>
-            <ul>
-              <li
-                className={nav === "home" && styles.selected}
-                onClick={() => {
-                  if (nav !== "home") {
-                    setNav("home");
-                    fetchPosts();
-                  }
-                }}
-              >
-                <HomeOutlined /> Home
-              </li>
-              <li
-                className={nav === "profile" && styles.selected}
-                onClick={() => setNav("profile")}
-              >
-                <PersonOutlineOutlined /> Profile
-              </li>
-              <li
-                className={nav === "settings" && styles.selected}
-                onClick={() => setNav("settings")}
-              >
-                <SettingsOutlined /> Settings
-              </li>
-            </ul>
-          </section>
-        </div>
+        <Navbar userData={userData} nav={nav} setNav={setNav} />
         <div className={styles.main}>
           {nav === "home" ? (
             <React.Fragment>
-              <div className={styles.createPost}>
-                <Avatar variant="rounded" className={classes.purple}>
-                  {userData.name.charAt(0).toUpperCase()}
-                </Avatar>
-                <textarea
-                  placeholder={`What's new, ${userData.name.split(" ")[0]}?`}
-                  onChange={(e) => setPostText(e.target.value)}
-                  value={postText}
-                />
-                <Button
-                  disabled={!postText || postLoading ? true : false}
-                  color="inherit"
-                  onClick={postHandle}
-                >
-                  Post it!
-                </Button>
-              </div>
+              <Share
+                fetchPosts={fetchPosts}
+                userData={userData}
+                postLoding={postLoading}
+                setPostLoading={setPostLoading}
+                token={token}
+              />
               <div className={styles.posts}>
                 {postLoading ? (
                   <div className={styles.skeleton}>
@@ -208,7 +137,7 @@ export default function Feed() {
             </span>
           )}
         </div>
-        <div></div>
+        <Sidebar />
       </div>
     </div>
   );

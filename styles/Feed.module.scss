@@ -18,100 +18,10 @@
     & > div {
       height: calc(100vh - 80px);
     }
-    .menu {
-      @include center(center, flex-start, column);
-      section {
-        width: 90%;
-        margin-top: 30px;
-        background-color: #fff;
-        border-radius: 10px;
-        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-      }
-      .username {
-        height: 80px;
-        @include center(center, center, row);
-        column-gap: 20px;
-        p {
-          span:nth-child(1) {
-            text-transform: capitalize;
-          }
-          span:nth-child(3) {
-            font-weight: 300;
-            font-size: 0.9em;
-            color: rgba(0, 0, 0, 0.479);
-          }
-        }
-      }
-      .navigation {
-        padding: 20px;
-        height: 250px;
-        ul {
-          height: 100%;
-          list-style-type: none;
-          @include center(center, center, column);
-          li {
-            height: 30%;
-            width: 100%;
-            border-bottom: 1px solid #f6f7f8;
-            @include center(center, flex-start, row);
-            font-weight: 500;
-            color: #54687f;
-            column-gap: 20px;
-            cursor: pointer;
-            transition: all 0.3s;
-            padding-left: 10px;
-            &:hover {
-              color: $primary;
-            }
-            &.selected {
-              background-color: #fcfbfc;
-              border-left: 1px solid $primary;
-              color: $primary;
-            }
-          }
-          li:last-child {
-            border-bottom: 0;
-          }
-        }
-      }
-    }
     .main {
       @include center(center, flex-start, column);
       & > div {
         margin-top: 30px;
-      }
-      .createPost {
-        @include center(flex-start, space-between, row);
-        padding: 20px 15px;
-        width: 90%;
-        background-color: #fff;
-        border-radius: 10px;
-        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-        button {
-          color: #fff;
-          background-color: $primary;
-          border-radius: 8px;
-          text-transform: none;
-          &:disabled {
-            background-color: gray;
-            opacity: 0.4;
-          }
-        }
-        textarea {
-          width: 70%;
-          height: 40px;
-          outline: none;
-          border: 0;
-          color: #000;
-          resize: none;
-          transition: all 0.3s;
-          &::placeholder {
-            color: rgba(0, 0, 0, 0.185);
-          }
-          &:focus {
-            height: 150px;
-          }
-        }
       }
     }
     .posts {
