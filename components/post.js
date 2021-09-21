@@ -18,21 +18,21 @@ const useStyles = makeStyles(() => ({
 }));
 
 export default function Post({
-  name,
   content,
   date,
-  likers,
+  likes,
   comments,
   userId,
   id,
   token,
-  avatar,
+  ownerId,
 }) {
   const [anchor, setAnchor] = useState(null);
   const [dateStr, setDateStr] = useState("");
   const [liked, setLiked] = useState(false);
   const [likeProc, setLikeProc] = useState(false);
-  const [likeCounter, setLikeCounter] = useState(likers.length);
+  const [likeCounter, setLikeCounter] = useState(likes.length);
+  const [owner, setOwner] = useState(null);
 
   const classes = useStyles();
 
@@ -61,8 +61,8 @@ export default function Post({
   const likeHandler = () => {
     setLikeProc(true);
     liked ? setLikeCounter(likeCounter - 1) : setLikeCounter(likeCounter + 1);
-    fetch(`${process.env.NEXT_PUBLIC_BASE_API}like/${id}`, {
-      method: "POST",
+    fetch(`${process.env.NEXT_PUBLIC_BASE_API}posts/like/${id}`, {
+      method: "PUT",
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -78,8 +78,21 @@ export default function Post({
       });
   };
   useEffect(() => {
+    fetch(`${process.env.NEXT_PUBLIC_BASE_API}user/${ownerId}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setOwner(data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
     setDateStr(dateFormat(date));
-    if (likers.indexOf(userId) > -1) {
+    if (likes.indexOf(userId) > -1) {
       setLiked(true);
     }
   }, []);
@@ -89,19 +102,19 @@ export default function Post({
       <header>
         <div>
           <div>
-            {avatar ? (
+            {false ? (
               <Avatar
                 variant="rounded"
                 src={`${process.env.NEXT_PUBLIC_BASE_API}media/${avatar}`}
               />
             ) : (
               <Avatar variant="rounded" className={classes.purple}>
-                {name.charAt(0).toUpperCase()}
+                {owner && owner.name.charAt(0).toUpperCase()}
               </Avatar>
             )}
           </div>
           <div>
-            <p>{name}</p>
+            <p>{owner && owner.name}</p>
             <span>{dateStr}</span>
           </div>
         </div>

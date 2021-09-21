@@ -105,8 +105,8 @@ export default function Register() {
   const submitHandler = (e) => {
     e.preventDefault();
     setLoading(true);
-    fetch(`${process.env.NEXT_PUBLIC_BASE_API}register`, {
-      method: "PUT",
+    fetch(`${process.env.NEXT_PUBLIC_BASE_API}auth/register`, {
+      method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({
         name: name,

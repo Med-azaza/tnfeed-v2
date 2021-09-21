@@ -37,7 +37,7 @@ export default function Feed() {
 
   const fetchPosts = () => {
     setPostLoading(true);
-    fetch(`${process.env.NEXT_PUBLIC_BASE_API}post`, {
+    fetch(`${process.env.NEXT_PUBLIC_BASE_API}posts/all`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -54,8 +54,8 @@ export default function Feed() {
   };
   const postHandle = () => {
     setPostLoading(true);
-    fetch(`${process.env.NEXT_PUBLIC_BASE_API}post`, {
-      method: "PUT",
+    fetch(`${process.env.NEXT_PUBLIC_BASE_API}posts/new`, {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -72,7 +72,7 @@ export default function Feed() {
   };
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_BASE_API}user`, {
+    fetch(`${process.env.NEXT_PUBLIC_BASE_API}me`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -191,13 +191,13 @@ export default function Feed() {
                     <Post
                       key={post._id}
                       id={post._id}
-                      likers={post.likers}
+                      likes={post.likes}
                       content={post.content}
-                      name={post.ownerName}
                       date={post.date}
+                      comments={post.comments}
                       userId={userData._id}
+                      ownerId={post.ownerId}
                       token={token}
-                      avatar={post.ownerAvatar}
                     />
                   ))
                 )}

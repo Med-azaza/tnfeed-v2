@@ -49,7 +49,7 @@ export default function Login() {
   const submitHandler = (e) => {
     e.preventDefault();
     setLoading(true);
-    fetch(`${process.env.NEXT_PUBLIC_BASE_API}login`, {
+    fetch(`${process.env.NEXT_PUBLIC_BASE_API}auth/login`, {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({
