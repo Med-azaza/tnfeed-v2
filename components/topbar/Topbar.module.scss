@@ -8,13 +8,14 @@
   padding: 0 30px;
   & > div {
     @include center(center, center, row);
-    button {
+    .logoutBtn {
       margin-left: 15px;
       text-transform: capitalize;
       color: #fff;
       background-color: $primary;
       &:hover {
         color: $primary;
+        background-color: #fff;
       }
     }
   }
@@ -26,6 +27,7 @@
     color: $primary;
     opacity: 0.8;
     padding: 0 10px;
+    margin-left: 15px;
     input {
       background-color: transparent;
       width: 200px;
@@ -37,5 +39,8 @@
         width: 350px;
       }
     }
+  }
+  .topbarIcons {
+    color: $primary;
   }
 }

@@ -1,0 +1,35 @@
+@import "./variables.scss";
+.container {
+  @include center(flex-start, space-between, row);
+  padding: 20px 15px;
+  width: 90%;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  button {
+    color: #fff;
+    background-color: $primary;
+    border-radius: 8px;
+    text-transform: none;
+    &:disabled {
+      background-color: gray;
+      opacity: 0.2;
+      color: #fff;
+    }
+  }
+  textarea {
+    width: 70%;
+    height: 40px;
+    outline: none;
+    border: 0;
+    color: #000;
+    resize: none;
+    transition: all 0.3s;
+    &::placeholder {
+      color: rgba(0, 0, 0, 0.185);
+    }
+    &:focus {
+      height: 150px;
+    }
+  }
+}
