@@ -10,13 +10,13 @@ export default function Navbar({ setNav, userData, nav }) {
   return (
     <div className={styles.container}>
       <section className={styles.username}>
-        {userData.avatar === "" ? (
+        {userData.profilePicture === "" ? (
           <Avatar className={classes.purple}>
             {userData.name.charAt(0).toUpperCase()}
           </Avatar>
         ) : (
           <Avatar
-            src={`${process.env.NEXT_PUBLIC_BASE_API}media/${userData.avatar}`}
+            src={`${process.env.NEXT_PUBLIC_BASE_API}images/${userData.profilePicture}`}
           />
         )}
 

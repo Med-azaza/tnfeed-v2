@@ -10,6 +10,8 @@ import {
   MenuItem,
 } from "@material-ui/core";
 import { MoreHoriz, Favorite, FavoriteBorder } from "@material-ui/icons";
+import Image from "next/image";
+import image from "next/image";
 
 const useStyles = makeStyles(() => ({
   purple: {
@@ -22,10 +24,11 @@ export default function Post({
   date,
   likes,
   comments,
-  userId,
+  userData,
   id,
   token,
   ownerId,
+  media,
 }) {
   const [anchor, setAnchor] = useState(null);
   const [dateStr, setDateStr] = useState("");
@@ -92,7 +95,7 @@ export default function Post({
         console.error(err);
       });
     setDateStr(dateFormat(date));
-    if (likes.indexOf(userId) > -1) {
+    if (likes.indexOf(userData._id) > -1) {
       setLiked(true);
     }
   }, []);
@@ -102,10 +105,10 @@ export default function Post({
       <header>
         <div>
           <div>
-            {false ? (
+            {owner && owner.profilePicture ? (
               <Avatar
                 variant="rounded"
-                src={`${process.env.NEXT_PUBLIC_BASE_API}media/${avatar}`}
+                src={`${process.env.NEXT_PUBLIC_BASE_API}images/${owner.profilePicture}`}
               />
             ) : (
               <Avatar variant="rounded" className={classes.purple}>
@@ -138,7 +141,12 @@ export default function Post({
           </Menu>
         </React.Fragment>
       </header>
-      <main>{content}</main>
+      <main>
+        {content}
+        {media && (
+          <img src={`${process.env.NEXT_PUBLIC_BASE_API}images/${media}`} />
+        )}
+      </main>
       <footer>
         {!liked ? (
           <IconButton onClick={likeHandler} disabled={likeProc ? true : false}>

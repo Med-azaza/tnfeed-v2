@@ -2,9 +2,7 @@
 .container {
   width: 90%;
   margin-top: 30px;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  @include card();
   color: #000;
   padding: 10px 20px;
   header {
@@ -30,6 +28,12 @@
     }
     .likeBtnDisabled {
       color: rgba(128, 128, 128, 0.466);
+    }
+  }
+  main {
+    width: 100%;
+    img {
+      width: 100%;
     }
   }
 }

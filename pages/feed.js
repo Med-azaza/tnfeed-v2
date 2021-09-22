@@ -121,16 +121,17 @@ export default function Feed() {
                       content={post.content}
                       date={post.date}
                       comments={post.comments}
-                      userId={userData._id}
+                      userData={userData}
                       ownerId={post.ownerId}
                       token={token}
+                      media={post.media}
                     />
                   ))
                 )}
               </div>
             </React.Fragment>
           ) : nav === "profile" ? (
-            <Profile token={token} />
+            <Profile userData={userData} token={token} />
           ) : (
             <span>
               settings <br />{" "}
