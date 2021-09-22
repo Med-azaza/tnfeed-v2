@@ -143,9 +143,7 @@ export default function Post({
       </header>
       <main>
         {content}
-        {media && (
-          <img src={`${process.env.NEXT_PUBLIC_BASE_API}images/${media}`} />
-        )}
+        {media && <img src={media} />}
       </main>
       <footer>
         {!liked ? (

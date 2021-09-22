@@ -32,15 +32,16 @@ export default function Share({
     if (file) {
       const data = new FormData();
       data.append("file", file);
+      data.append("upload_preset", "preset");
+      data.append("cloud_name", "medazcloud");
       setFile(null);
-      fetch(`${process.env.NEXT_PUBLIC_BASE_API}upload`, {
-        method: "POST",
-        headers: { Authorization: `Bearer ${token}` },
+      fetch(process.env.NEXT_PUBLIC_UPLOAD, {
+        method: "post",
         body: data,
       })
         .then((res) => res.json())
         .then((data) => {
-          postBody.media = data.filename;
+          postBody.media = data.secure_url;
           fetch(`${process.env.NEXT_PUBLIC_BASE_API}posts/new`, {
             method: "POST",
             headers: {
@@ -57,9 +58,7 @@ export default function Share({
               console.error(err);
             });
         })
-        .catch((err) => {
-          console.error(err);
-        });
+        .catch((err) => console.error(err));
     } else {
       fetch(`${process.env.NEXT_PUBLIC_BASE_API}posts/new`, {
         method: "POST",
