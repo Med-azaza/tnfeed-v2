@@ -80,9 +80,13 @@ export default function Share({
   return (
     <div className={styles.container}>
       <div>
-        <Avatar variant="rounded" className={classes.purple}>
-          {userData.name.charAt(0).toUpperCase()}
-        </Avatar>
+        {userData.profilePicture ? (
+          <Avatar variant="rounded" src={`${userData.profilePicture}`} />
+        ) : (
+          <Avatar variant="rounded" className={classes.purple}>
+            {userData.name.charAt(0).toUpperCase()}
+          </Avatar>
+        )}
         <textarea
           placeholder={`What's new, ${userData.name.split(" ")[0]}?`}
           onChange={(e) => setPostText(e.target.value)}

@@ -15,9 +15,7 @@ export default function Navbar({ setNav, userData, nav }) {
             {userData.name.charAt(0).toUpperCase()}
           </Avatar>
         ) : (
-          <Avatar
-            src={`${process.env.NEXT_PUBLIC_BASE_API}images/${userData.profilePicture}`}
-          />
+          <Avatar src={`${userData.profilePicture}`} />
         )}
 
         <p>

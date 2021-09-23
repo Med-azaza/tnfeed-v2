@@ -106,10 +106,7 @@ export default function Post({
         <div>
           <div>
             {owner && owner.profilePicture ? (
-              <Avatar
-                variant="rounded"
-                src={`${process.env.NEXT_PUBLIC_BASE_API}images/${owner.profilePicture}`}
-              />
+              <Avatar variant="rounded" src={`${owner.profilePicture}`} />
             ) : (
               <Avatar variant="rounded" className={classes.purple}>
                 {owner && owner.name.charAt(0).toUpperCase()}
