@@ -39,6 +39,7 @@ export default function Topbar({ setLoading }) {
           <input type="text" placeholder="Search" />
         </div>
         <Button
+          disableElevation
           className={styles.logoutBtn}
           variant="contained"
           onClick={() => {

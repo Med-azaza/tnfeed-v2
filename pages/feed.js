@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import styles from "../styles/Feed.module.scss";
 import { useCookies } from "react-cookie";
-import { CircularProgress, Avatar, Button } from "@material-ui/core";
+import { CircularProgress } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Skeleton from "@mui/material/Skeleton";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import MainHeader from "../components/mainHeader";
 import Post from "../components/post";
@@ -13,6 +12,7 @@ import Topbar from "../components/topbar";
 import Sidebar from "../components/sidebar";
 import Navbar from "../components/navbar";
 import Share from "../components/share";
+import Settings from "../components/settings";
 
 const useStyles = makeStyles(() => ({
   purple: {
@@ -133,9 +133,7 @@ export default function Feed() {
           ) : nav === "profile" ? (
             <Profile userData={userData} token={token} />
           ) : (
-            <span>
-              settings <br />{" "}
-            </span>
+            <Settings userData={userData} token={token} />
           )}
         </div>
         <Sidebar />
