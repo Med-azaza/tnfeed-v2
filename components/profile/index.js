@@ -135,7 +135,11 @@ export default function Profile({ token, userData }) {
           >
             Cancel
           </Button>
-          <LoadingButton onClick={updateProfilePic} loading={uploadLoading}>
+          <LoadingButton
+            disabled={Boolean(!file)}
+            onClick={updateProfilePic}
+            loading={uploadLoading}
+          >
             update
           </LoadingButton>
         </DialogActions>
@@ -172,7 +176,11 @@ export default function Profile({ token, userData }) {
           >
             Cancel
           </Button>
-          <LoadingButton onClick={updateCoverPic} loading={uploadLoading}>
+          <LoadingButton
+            disabled={Boolean(!file)}
+            onClick={updateCoverPic}
+            loading={uploadLoading}
+          >
             update
           </LoadingButton>
         </DialogActions>

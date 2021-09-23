@@ -36,7 +36,7 @@ export default function Topbar({ setLoading }) {
         </div>
         <div className={styles.searchbar}>
           <SearchRounded />
-          <input type="text" placeholder="Search" />
+          <input type="search" placeholder="Search" />
         </div>
         <Button
           disableElevation

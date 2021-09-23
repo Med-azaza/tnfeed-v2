@@ -18,11 +18,17 @@
     border-radius: 10px 10px 0 0;
     height: 200px;
     background-color: rgba(128, 128, 128, 0.678);
+    position: relative;
     .coverIndicator {
       color: #fff;
       display: none;
       font-size: 3em;
       opacity: 0.8;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 99;
     }
     &:hover .coverIndicator {
       display: block;

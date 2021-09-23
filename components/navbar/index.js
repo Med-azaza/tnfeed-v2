@@ -1,5 +1,5 @@
 import styles from "./Navbar.module.scss";
-import { Avatar } from "@mui/material";
+import { Avatar } from "@material-ui/core";
 import {
   HomeOutlined,
   PersonOutlineOutlined,
