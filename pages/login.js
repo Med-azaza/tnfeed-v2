@@ -58,7 +58,7 @@ export default function Login() {
       }),
     })
       .then((res) => {
-        if (res.status == 404) {
+        if (res.status === 404 || res.status === 401) {
           setAlert(true);
           setLoading(false);
         } else {

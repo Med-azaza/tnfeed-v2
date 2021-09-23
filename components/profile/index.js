@@ -11,6 +11,7 @@ import {
   DialogTitle,
   Button,
 } from "@mui/material";
+import { Edit } from "@material-ui/icons";
 
 const Input = styled("input")({
   display: "none",
@@ -93,11 +94,13 @@ export default function Profile({ token, userData }) {
         {userData.coverPicture && (
           <img src={`${userData.coverPicture}`} alt="" />
         )}
+        <Edit color="inherit" className={styles.coverIndicator} />
       </div>
       <div className={styles.profilePic} onClick={() => setProfileDial(true)}>
         {userData.profilePicture && (
           <img src={`${userData.profilePicture}`} alt="" />
         )}
+        <Edit color="inherit" className={styles.profileIndicator} />
       </div>
       <p className={styles.name}>{userData.name}</p>
       <Dialog open={profileDial} onClose={() => setProfileDial(false)}>
