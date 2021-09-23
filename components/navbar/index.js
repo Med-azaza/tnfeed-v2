@@ -5,8 +5,16 @@ import {
   PersonOutlineOutlined,
   SettingsOutlined,
 } from "@material-ui/icons";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles(() => ({
+  purple: {
+    backgroundColor: "#a975ff",
+  },
+}));
 
 export default function Navbar({ setNav, userData, nav }) {
+  const classes = useStyles();
   return (
     <div className={styles.container}>
       <section className={styles.username}>
