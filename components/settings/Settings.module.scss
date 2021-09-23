@@ -1,0 +1,28 @@
+@import "./variables.scss";
+.container {
+  width: 85%;
+  min-height: 200px;
+  @include card();
+  @include center(center, flex-start, column);
+  padding: 15px;
+  section {
+    @include center(center, space-between, row);
+    height: 100px;
+    width: 95%;
+    margin: 5px 0;
+    button {
+      background-color: $primary;
+      color: #fff;
+      &:hover {
+        color: $primary;
+      }
+    }
+    div {
+      @include center(flex-start, center, column);
+      span {
+        font-size: 0.9em;
+        color: rgba(0, 0, 0, 0.521);
+      }
+    }
+  }
+}
