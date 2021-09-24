@@ -12,19 +12,43 @@ import {
   Button,
 } from "@mui/material";
 import { Edit } from "@material-ui/icons";
+import { CircularProgress } from "@material-ui/core";
+import { motion } from "framer-motion";
 
 const Input = styled("input")({
   display: "none",
 });
 
-export default function Profile({ token, userData }) {
+export default function Profile({ token, userData, current, id }) {
   const [cookies, setCookie, removeCookie] = useCookies(["token"]);
   const [profileDial, setProfileDial] = useState(false);
   const [coverDial, setCoverDial] = useState(false);
   const [file, setFile] = useState(null);
   const [uploadLoading, setUploadLoading] = useState(false);
+  const [data, setData] = useState(userData);
+  const [loading, setLoading] = useState(true);
 
   const router = useRouter();
+  useEffect(() => {
+    if (!current) {
+      fetch(`${process.env.NEXT_PUBLIC_BASE_API}user/${id}`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setData(data);
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    } else {
+      setLoading(false);
+    }
+  }, []);
 
   const updateCoverPic = () => {
     setUploadLoading(true);
@@ -88,21 +112,29 @@ export default function Profile({ token, userData }) {
       });
   };
 
-  return (
+  return loading ? (
+    <div className={styles.loadingScreen}>
+      <CircularProgress size={80} color="inherit" />
+    </div>
+  ) : (
     <div className={styles.container}>
-      <div className={styles.coverPic} onClick={() => setCoverDial(true)}>
-        {userData.coverPicture && (
-          <img src={`${userData.coverPicture}`} alt="" />
-        )}
-        <Edit color="inherit" className={styles.coverIndicator} />
+      <div
+        className={styles.coverPic}
+        onClick={() => current && setCoverDial(true)}
+      >
+        {data.coverPicture && <img src={`${data.coverPicture}`} alt="" />}
+        {current && <Edit color="inherit" className={styles.coverIndicator} />}
       </div>
-      <div className={styles.profilePic} onClick={() => setProfileDial(true)}>
-        {userData.profilePicture && (
-          <img src={`${userData.profilePicture}`} alt="" />
+      <div
+        className={styles.profilePic}
+        onClick={() => current && setProfileDial(true)}
+      >
+        {data.profilePicture && <img src={`${data.profilePicture}`} alt="" />}
+        {current && (
+          <Edit color="inherit" className={styles.profileIndicator} />
         )}
-        <Edit color="inherit" className={styles.profileIndicator} />
       </div>
-      <p className={styles.name}>{userData.name}</p>
+      <p className={styles.name}>{data.name}</p>
       <Dialog open={profileDial} onClose={() => setProfileDial(false)}>
         <DialogTitle>Update Profile Picture</DialogTitle>
         <DialogContent>

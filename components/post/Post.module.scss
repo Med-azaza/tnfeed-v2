@@ -11,6 +11,12 @@
     div:nth-child(1) {
       @include center(center, center, row);
       column-gap: 10px;
+      p {
+        cursor: pointer;
+        &:hover {
+          color: $primary;
+        }
+      }
       span {
         font-weight: 300;
         font-size: 0.9em;

@@ -19,9 +19,32 @@
       height: calc(100vh - 80px);
     }
     .main {
+      position: relative;
       @include center(center, flex-start, column);
       & > div {
         margin-top: 30px;
+      }
+      .profileContainer {
+        position: absolute;
+        width: 100%;
+        background-color: #fff;
+        .closeBtn {
+          position: absolute;
+          left: 90%;
+          top: 10px;
+          color: $primary;
+          width: 50px;
+          height: 50px;
+          background-color: #fff;
+          border-radius: 50%;
+          @include center(center, center, column);
+          cursor: pointer;
+          font-size: 1.5em;
+          transition: all 0.2s;
+          &:hover {
+            font-size: 2em;
+          }
+        }
       }
     }
     .posts {

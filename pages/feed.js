@@ -4,6 +4,7 @@ import { useCookies } from "react-cookie";
 import { CircularProgress } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Skeleton from "@mui/material/Skeleton";
+import { motion } from "framer-motion";
 import { useRouter } from "next/router";
 import MainHeader from "../components/mainHeader";
 import Post from "../components/post";
@@ -13,6 +14,7 @@ import Sidebar from "../components/sidebar";
 import Navbar from "../components/navbar";
 import Share from "../components/share";
 import Settings from "../components/settings";
+import { CloseRounded } from "@material-ui/icons";
 
 const useStyles = makeStyles(() => ({
   purple: {
@@ -27,6 +29,8 @@ export default function Feed() {
   const [userData, setUserData] = useState({});
   const [nav, setNav] = useState("home");
   const [posts, setPosts] = useState([]);
+  const [showProfile, setShowProfile] = useState(false);
+  const [selectedId, setSelectedId] = useState(null);
 
   const router = useRouter();
   const classes = useStyles();
@@ -125,13 +129,36 @@ export default function Feed() {
                       ownerId={post.ownerId}
                       token={token}
                       media={post.media}
+                      setShowProfile={setShowProfile}
+                      setSelectedId={setSelectedId}
                     />
                   ))
                 )}
               </div>
+              {showProfile && (
+                <motion.div
+                  initial={{ y: 1000 }}
+                  animate={{ y: 0 }}
+                  transition={{ type: "linear" }}
+                  className={styles.profileContainer}
+                >
+                  <Profile
+                    userData={userData}
+                    current={selectedId === userData._id ? true : false}
+                    id={selectedId}
+                    token={token}
+                  />
+                  <div
+                    onClick={() => setShowProfile(false)}
+                    className={styles.closeBtn}
+                  >
+                    <CloseRounded fontSize="inherit" color="inherit" />
+                  </div>
+                </motion.div>
+              )}
             </React.Fragment>
           ) : nav === "profile" ? (
-            <Profile userData={userData} token={token} />
+            <Profile userData={userData} current={true} token={token} />
           ) : (
             <Settings userData={userData} token={token} />
           )}

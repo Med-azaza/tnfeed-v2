@@ -10,8 +10,6 @@ import {
   MenuItem,
 } from "@material-ui/core";
 import { MoreHoriz, Favorite, FavoriteBorder } from "@material-ui/icons";
-import Image from "next/image";
-import image from "next/image";
 
 const useStyles = makeStyles(() => ({
   purple: {
@@ -29,6 +27,8 @@ export default function Post({
   token,
   ownerId,
   media,
+  setShowProfile,
+  setSelectedId,
 }) {
   const [anchor, setAnchor] = useState(null);
   const [dateStr, setDateStr] = useState("");
@@ -106,15 +106,36 @@ export default function Post({
         <div>
           <div>
             {owner && owner.profilePicture ? (
-              <Avatar variant="rounded" src={`${owner.profilePicture}`} />
+              <Avatar
+                onClick={() => {
+                  setSelectedId(owner._id);
+                  setShowProfile(true);
+                }}
+                variant="rounded"
+                src={`${owner.profilePicture}`}
+              />
             ) : (
-              <Avatar variant="rounded" className={classes.purple}>
+              <Avatar
+                onClick={() => {
+                  setSelectedId(owner._id);
+                  setShowProfile(true);
+                }}
+                variant="rounded"
+                className={classes.purple}
+              >
                 {owner && owner.name.charAt(0).toUpperCase()}
               </Avatar>
             )}
           </div>
           <div>
-            <p>{owner && owner.name}</p>
+            <p
+              onClick={() => {
+                setSelectedId(owner._id);
+                setShowProfile(true);
+              }}
+            >
+              {owner && owner.name}
+            </p>
             <span>{dateStr}</span>
           </div>
         </div>
