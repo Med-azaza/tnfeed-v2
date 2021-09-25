@@ -4,7 +4,7 @@ import { useCookies } from "react-cookie";
 import { CircularProgress } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Skeleton from "@mui/material/Skeleton";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/router";
 import MainHeader from "../components/mainHeader";
 import Post from "../components/post";
@@ -135,27 +135,30 @@ export default function Feed() {
                   ))
                 )}
               </div>
-              {showProfile && (
-                <motion.div
-                  initial={{ y: 1000 }}
-                  animate={{ y: 0 }}
-                  transition={{ type: "linear" }}
-                  className={styles.profileContainer}
-                >
-                  <Profile
-                    userData={userData}
-                    current={selectedId === userData._id ? true : false}
-                    id={selectedId}
-                    token={token}
-                  />
-                  <div
-                    onClick={() => setShowProfile(false)}
-                    className={styles.closeBtn}
+              <AnimatePresence>
+                {showProfile && (
+                  <motion.div
+                    initial={{ y: 500 }}
+                    animate={{ y: 0 }}
+                    exit={{ y: 500 }}
+                    transition={{ type: "linear" }}
+                    className={styles.profileContainer}
                   >
-                    <CloseRounded fontSize="inherit" color="inherit" />
-                  </div>
-                </motion.div>
-              )}
+                    <Profile
+                      userData={userData}
+                      current={selectedId === userData._id ? true : false}
+                      id={selectedId}
+                      token={token}
+                    />
+                    <div
+                      onClick={() => setShowProfile(false)}
+                      className={styles.closeBtn}
+                    >
+                      <CloseRounded fontSize="inherit" color="inherit" />
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </React.Fragment>
           ) : nav === "profile" ? (
             <Profile userData={userData} current={true} token={token} />
