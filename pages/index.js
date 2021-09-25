@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import MainHeader from "../components/mainHeader";
 import Image from "next/image";
 import styles from "../styles/Home.module.scss";
@@ -6,6 +7,12 @@ import { AccountCircle, PersonAdd } from "@material-ui/icons";
 import Link from "next/link";
 
 export default function Home() {
+  useEffect(() => {
+    fetch(`${process.env.NEXT_PUBLIC_BASE_API}test`)
+      .then((res) => res.json())
+      .then((data) => console.log(data))
+      .catch((err) => console.error(err));
+  }, []);
   return (
     <div className={styles.container}>
       <MainHeader title="Tn Feed - first tunisian social media platform" />
