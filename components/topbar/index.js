@@ -63,13 +63,17 @@ export default function Topbar({ setLoading }) {
         onClose={() => setAnchorEl(null)}
         PaperProps={{
           style: {
-            maxHeight: 50 * 4.5,
-            width: "20ch",
+            maxHeight: 200 * 2.5,
+            width: 400,
           },
         }}
       >
         {notifications.map((not, index) => (
-          <MenuItem key={index} onClick={() => setAnchorEl(null)}>
+          <MenuItem
+            className={styles.menuItem}
+            key={index}
+            onClick={() => setAnchorEl(null)}
+          >
             {not}
           </MenuItem>
         ))}

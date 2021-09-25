@@ -104,7 +104,7 @@ export default function Post({
     <div className={styles.container}>
       <header>
         <div>
-          <div>
+          <div className={styles.avatar}>
             {owner && owner.profilePicture ? (
               <Avatar
                 onClick={() => {

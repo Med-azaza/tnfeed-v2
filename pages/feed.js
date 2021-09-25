@@ -149,6 +149,8 @@ export default function Feed() {
                       current={selectedId === userData._id ? true : false}
                       id={selectedId}
                       token={token}
+                      setShowProfile={setShowProfile}
+                      setSelectedId={setSelectedId}
                     />
                     <div
                       onClick={() => setShowProfile(false)}
@@ -161,7 +163,13 @@ export default function Feed() {
               </AnimatePresence>
             </React.Fragment>
           ) : nav === "profile" ? (
-            <Profile userData={userData} current={true} token={token} />
+            <Profile
+              userData={userData}
+              current={true}
+              token={token}
+              setShowProfile={() => {}}
+              setSelectedId={() => {}}
+            />
           ) : (
             <Settings userData={userData} token={token} />
           )}

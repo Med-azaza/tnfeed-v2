@@ -44,3 +44,9 @@
     color: $primary;
   }
 }
+.menuItem {
+  height: 200px;
+  * {
+    align-items: flex-start;
+  }
+}

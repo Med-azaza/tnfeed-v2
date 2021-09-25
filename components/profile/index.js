@@ -13,13 +13,20 @@ import {
 } from "@mui/material";
 import { Edit } from "@material-ui/icons";
 import { CircularProgress } from "@material-ui/core";
-import { motion } from "framer-motion";
+import Post from "../post";
 
 const Input = styled("input")({
   display: "none",
 });
 
-export default function Profile({ token, userData, current, id }) {
+export default function Profile({
+  token,
+  userData,
+  current,
+  id,
+  setShowProfile,
+  setSelectedId,
+}) {
   const [cookies, setCookie, removeCookie] = useCookies(["token"]);
   const [profileDial, setProfileDial] = useState(false);
   const [coverDial, setCoverDial] = useState(false);
@@ -27,8 +34,25 @@ export default function Profile({ token, userData, current, id }) {
   const [uploadLoading, setUploadLoading] = useState(false);
   const [data, setData] = useState(userData);
   const [loading, setLoading] = useState(true);
+  const [posts, setPosts] = useState([]);
 
   const router = useRouter();
+
+  const fetchPosts = (userId) => {
+    fetch(`${process.env.NEXT_PUBLIC_BASE_API}posts/${userId}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setPosts(data);
+        setLoading(false);
+      })
+      .catch((err) => console.error(err));
+  };
+
   useEffect(() => {
     if (!current) {
       fetch(`${process.env.NEXT_PUBLIC_BASE_API}user/${id}`, {
@@ -40,13 +64,13 @@ export default function Profile({ token, userData, current, id }) {
         .then((res) => res.json())
         .then((data) => {
           setData(data);
-          setLoading(false);
+          fetchPosts(data._id);
         })
         .catch((err) => {
           console.error(err);
         });
     } else {
-      setLoading(false);
+      fetchPosts(data._id);
     }
   }, []);
 
@@ -135,6 +159,24 @@ export default function Profile({ token, userData, current, id }) {
         )}
       </div>
       <p className={styles.name}>{data.name}</p>
+      <div className={styles.posts}>
+        {posts.map((post) => (
+          <Post
+            key={post._id}
+            id={post._id}
+            likes={post.likes}
+            content={post.content}
+            date={post.date}
+            comments={post.comments}
+            userData={userData}
+            ownerId={post.ownerId}
+            token={token}
+            media={post.media}
+            setShowProfile={setShowProfile}
+            setSelectedId={setSelectedId}
+          />
+        ))}
+      </div>
       <Dialog open={profileDial} onClose={() => setProfileDial(false)}>
         <DialogTitle>Update Profile Picture</DialogTitle>
         <DialogContent>
