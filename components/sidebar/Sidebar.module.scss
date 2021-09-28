@@ -2,6 +2,7 @@
 .container {
   padding: 20px 15px;
   @include center(center, flex-start, column);
+  overflow: auto;
   .title {
     width: 100%;
     @include center(center, space-between, row);
@@ -16,6 +17,9 @@
       border-radius: 45%;
       text-align: center;
     }
+    .contactsBadge {
+      background-color: rgb(171, 185, 201);
+    }
   }
   .request {
     @include card();
@@ -24,7 +28,7 @@
     & > div:nth-child(1) {
       margin-bottom: 10px;
       @include center(center, flex-start, row);
-      column-gap: 5px;
+      column-gap: 10px;
       font-size: 0.9em;
       font-weight: 300;
       span {
@@ -33,17 +37,33 @@
       }
     }
     & > div:nth-child(2) {
-      @include center(center, space-between, row);
+      @include center(center, center, row);
+      column-gap: 10px;
       button {
-        width: 48%;
+        width: 40%;
+        border-radius: 10px;
+        text-transform: capitalize;
       }
       button:nth-child(1) {
         background-color: $primary;
         color: #fff;
       }
       button:nth-child(2) {
-        color: $primary;
+        color: rgb(73, 96, 126);
+        border: 1px solid rgb(233, 234, 241);
       }
+    }
+  }
+  .friendsContainer {
+    @include card();
+    width: 100%;
+    padding: 20px;
+    @include center(center, flex-start, column);
+    .friend {
+      @include center(center, flex-start, row);
+      column-gap: 20px;
+      width: 100%;
+      margin: 7px 0;
     }
   }
 }

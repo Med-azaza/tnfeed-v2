@@ -32,6 +32,24 @@ export default function Sidebar() {
           <Button>decline</Button>
         </div>
       </div>
+      <div className={styles.title}>
+        <p>CONTACTS</p>
+        <span className={styles.contactsBadge}>32</span>
+      </div>
+      <div className={styles.friendsContainer}>
+        <div className={styles.friend}>
+          <Avatar variant="rounded">A</Avatar>
+          <p>user Name</p>
+        </div>
+        <div className={styles.friend}>
+          <Avatar variant="rounded">A</Avatar>
+          <p>user Name</p>
+        </div>
+        <div className={styles.friend}>
+          <Avatar variant="rounded">A</Avatar>
+          <p>user Name</p>
+        </div>
+      </div>
     </div>
   );
 }
