@@ -53,8 +53,8 @@ export default function Feed() {
         console.error(err);
       });
   };
-
-  useEffect(() => {
+  const currentUserInfos = () => {
+    setLoading(true);
     fetch(`${process.env.NEXT_PUBLIC_BASE_API}me`, {
       method: "GET",
       headers: {
@@ -71,6 +71,10 @@ export default function Feed() {
       .catch((err) => {
         console.error(err);
       });
+  };
+
+  useEffect(() => {
+    currentUserInfos();
     fetchPosts();
   }, []);
   useEffect(() => {
@@ -151,6 +155,7 @@ export default function Feed() {
                       token={token}
                       setShowProfile={setShowProfile}
                       setSelectedId={setSelectedId}
+                      currentUserInfos={currentUserInfos}
                     />
                     <div
                       onClick={() => setShowProfile(false)}
@@ -169,6 +174,7 @@ export default function Feed() {
               token={token}
               setShowProfile={() => {}}
               setSelectedId={() => {}}
+              currentUserInfos={currentUserInfos}
             />
           ) : (
             <Settings userData={userData} token={token} />
