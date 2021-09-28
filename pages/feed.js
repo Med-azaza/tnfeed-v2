@@ -177,10 +177,14 @@ export default function Feed() {
               currentUserInfos={currentUserInfos}
             />
           ) : (
-            <Settings userData={userData} token={token} />
+            <Settings
+              currentUserInfos={currentUserInfos}
+              userData={userData}
+              token={token}
+            />
           )}
         </div>
-        <Sidebar />
+        <Sidebar token={token} userData={userData} />
       </div>
     </div>
   );

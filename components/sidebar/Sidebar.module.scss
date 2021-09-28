@@ -3,6 +3,9 @@
   padding: 20px 15px;
   @include center(center, flex-start, column);
   overflow: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
   .title {
     width: 100%;
     @include center(center, space-between, row);

@@ -11,7 +11,7 @@ import {
 import LoadingButton from "@mui/lab/LoadingButton";
 import { useRouter } from "next/router";
 
-export default function Settings({ token, userData }) {
+export default function Settings({ token, userData, currentUserInfos }) {
   const [loading, setLoading] = useState(false);
   const [text, setText] = useState("");
   const [name, setName] = useState(false);
@@ -33,7 +33,7 @@ export default function Settings({ token, userData }) {
       body: JSON.stringify(body),
     })
       .then((response) => {
-        router.reload();
+        currentUserInfos();
       })
       .catch((err) => {
         console.error(err);
