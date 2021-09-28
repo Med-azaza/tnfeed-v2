@@ -9,15 +9,35 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function Sidebar({ userData, token }) {
+export default function Sidebar({ userData, token, currentUserInfos }) {
   const [requests, setRequests] = useState([]);
+  const [friends, setFriends] = useState([]);
+  const [disabled, setDisabled] = useState(false);
 
   const classes = useStyles();
+
+  const fetchFriends = () => {
+    setFriends([]);
+    for (let id of userData.friends) {
+      fetch(`${process.env.NEXT_PUBLIC_BASE_API}user/${id}`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setFriends((prev) => [...prev, data]);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
+  };
 
   const fetchRequests = () => {
     setRequests([]);
     for (let id of userData.requests) {
-      console.log(id);
       fetch(`${process.env.NEXT_PUBLIC_BASE_API}user/${id}`, {
         method: "GET",
         headers: {
@@ -33,9 +53,30 @@ export default function Sidebar({ userData, token }) {
         });
     }
   };
+  const accept = (id) => {
+    setDisabled(true);
+    fetch(`${process.env.NEXT_PUBLIC_BASE_API}user/accept/${id}`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        if (res.status == 200) {
+          currentUserInfos();
+          fetchFriends();
+          fetchRequests();
+          setDisabled(false);
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
 
   useEffect(() => {
     fetchRequests();
+    fetchFriends();
   }, []);
 
   return (
@@ -59,29 +100,33 @@ export default function Sidebar({ userData, token }) {
             </p>
           </div>
           <div>
-            <Button>accept</Button>
-            <Button>decline</Button>
+            <Button disabled={disabled} onClick={() => accept(req._id)}>
+              accept
+            </Button>
+            <Button disabled={disabled}>decline</Button>
           </div>
         </div>
       ))}
       <div className={styles.title}>
         <p>CONTACTS</p>
-        <span className={styles.contactsBadge}>32</span>
+        <span className={styles.contactsBadge}>{friends.length}</span>
       </div>
-      <div className={styles.friendsContainer}>
-        <div className={styles.friend}>
-          <Avatar variant="rounded">A</Avatar>
-          <p>user Name</p>
+      {friends.length > 0 && (
+        <div className={styles.friendsContainer}>
+          {friends.map((fr) => (
+            <div className={styles.friend}>
+              {fr.profilePicture ? (
+                <Avatar variant="rounded" src={`${fr.profilePicture}`} />
+              ) : (
+                <Avatar variant="rounded" className={classes.purple}>
+                  {fr.name.charAt(0).toUpperCase()}
+                </Avatar>
+              )}
+              <p>{fr.name}</p>
+            </div>
+          ))}
         </div>
-        <div className={styles.friend}>
-          <Avatar variant="rounded">A</Avatar>
-          <p>user Name</p>
-        </div>
-        <div className={styles.friend}>
-          <Avatar variant="rounded">A</Avatar>
-          <p>user Name</p>
-        </div>
-      </div>
+      )}
     </div>
   );
 }

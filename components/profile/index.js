@@ -99,6 +99,8 @@ export default function Profile({
         })
           .then((response) => {
             currentUserInfos();
+            setUploadLoading(false);
+            setCoverDial(false);
           })
           .catch((err) => {
             console.error(err);
@@ -130,6 +132,8 @@ export default function Profile({
         })
           .then((response) => {
             currentUserInfos();
+            setUploadLoading(false);
+            setProfileDial(false);
           })
           .catch((err) => {
             console.error(err);

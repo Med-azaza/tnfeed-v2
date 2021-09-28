@@ -27,9 +27,9 @@
   .request {
     @include card();
     margin-bottom: 10px;
-    padding: 10px;
+    padding: 15px;
     & > div:nth-child(1) {
-      margin-bottom: 10px;
+      margin-bottom: 20px;
       @include center(center, flex-start, row);
       column-gap: 10px;
       font-size: 0.9em;
@@ -50,10 +50,20 @@
       button:nth-child(1) {
         background-color: $primary;
         color: #fff;
+        &:disabled {
+          background-color: gray;
+          color: #fff;
+          opacity: 0.6;
+        }
       }
       button:nth-child(2) {
         color: rgb(73, 96, 126);
         border: 1px solid rgb(233, 234, 241);
+        &:disabled {
+          background-color: gray;
+          color: #fff;
+          opacity: 0.6;
+        }
       }
     }
   }

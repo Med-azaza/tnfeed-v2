@@ -34,6 +34,11 @@ export default function Settings({ token, userData, currentUserInfos }) {
     })
       .then((response) => {
         currentUserInfos();
+        setEmail(false);
+        setPass(false);
+        setName(false);
+        setUser(false);
+        setLoading(false);
       })
       .catch((err) => {
         console.error(err);

@@ -54,7 +54,7 @@ export default function Feed() {
       });
   };
   const currentUserInfos = () => {
-    setLoading(true);
+    //setLoading(true);
     fetch(`${process.env.NEXT_PUBLIC_BASE_API}me`, {
       method: "GET",
       headers: {
@@ -184,7 +184,11 @@ export default function Feed() {
             />
           )}
         </div>
-        <Sidebar token={token} userData={userData} />
+        <Sidebar
+          currentUserInfos={currentUserInfos}
+          token={token}
+          userData={userData}
+        />
       </div>
     </div>
   );
