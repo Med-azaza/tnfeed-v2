@@ -26,6 +26,7 @@ export default function Profile({
   id,
   setShowProfile,
   setSelectedId,
+  currentUserInfos,
 }) {
   const [cookies, setCookie, removeCookie] = useCookies(["token"]);
   const [profileDial, setProfileDial] = useState(false);
@@ -97,7 +98,7 @@ export default function Profile({
           body: JSON.stringify(body),
         })
           .then((response) => {
-            router.reload();
+            currentUserInfos();
           })
           .catch((err) => {
             console.error(err);
@@ -128,7 +129,7 @@ export default function Profile({
           body: JSON.stringify(body),
         })
           .then((response) => {
-            router.reload();
+            currentUserInfos();
           })
           .catch((err) => {
             console.error(err);
