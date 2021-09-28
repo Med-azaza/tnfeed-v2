@@ -114,7 +114,7 @@ export default function Sidebar({ userData, token, currentUserInfos }) {
       {friends.length > 0 && (
         <div className={styles.friendsContainer}>
           {friends.map((fr) => (
-            <div className={styles.friend}>
+            <div key={fr._id} className={styles.friend}>
               {fr.profilePicture ? (
                 <Avatar variant="rounded" src={`${fr.profilePicture}`} />
               ) : (
