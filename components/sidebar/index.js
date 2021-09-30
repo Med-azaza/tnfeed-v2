@@ -64,8 +64,6 @@ export default function Sidebar({ userData, token, currentUserInfos }) {
       .then((res) => {
         if (res.status == 200) {
           currentUserInfos();
-          fetchFriends();
-          fetchRequests();
           setDisabled(false);
         }
       })
@@ -74,10 +72,14 @@ export default function Sidebar({ userData, token, currentUserInfos }) {
       });
   };
 
+  // useEffect(() => {
+  //   fetchRequests();
+  //   fetchFriends();
+  // }, []);
   useEffect(() => {
     fetchRequests();
     fetchFriends();
-  }, []);
+  }, [userData]);
 
   return (
     <div className={styles.container}>
