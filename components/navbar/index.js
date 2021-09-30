@@ -34,19 +34,19 @@ export default function Navbar({ setNav, userData, nav }) {
       <section className={styles.navigation}>
         <ul>
           <li
-            className={nav === "home" && styles.selected}
+            className={nav === "home" ? styles.selected : undefined}
             onClick={() => setNav("home")}
           >
             <HomeOutlined /> Home
           </li>
           <li
-            className={nav === "profile" && styles.selected}
+            className={nav === "profile" ? styles.selected : undefined}
             onClick={() => setNav("profile")}
           >
             <PersonOutlineOutlined /> Profile
           </li>
           <li
-            className={nav === "settings" && styles.selected}
+            className={nav === "settings" ? styles.selected : undefined}
             onClick={() => setNav("settings")}
           >
             <SettingsOutlined /> Settings
