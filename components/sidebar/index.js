@@ -4,7 +4,13 @@ import { Button, Avatar } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { LinearProgress, IconButton, Menu, MenuItem } from "@mui/material";
 import { MoreHoriz } from "@material-ui/icons";
-import { fetchFriends, fetchRequests, accept, decline } from "./friendSystem";
+import {
+  fetchFriends,
+  fetchRequests,
+  accept,
+  decline,
+  remove,
+} from "./friendSystem";
 
 const useStyles = makeStyles(() => ({
   purple: {
@@ -129,7 +135,12 @@ export default function Sidebar({ userData, token, currentUserInfos }) {
                 >
                   <MenuItem
                     onClick={() => {
-                      alert(options);
+                      remove(
+                        options,
+                        setFriendsLoading,
+                        currentUserInfos,
+                        token
+                      );
                       handleClose();
                     }}
                   >

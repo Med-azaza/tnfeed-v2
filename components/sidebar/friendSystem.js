@@ -84,4 +84,21 @@ const decline = (id, setDisabled, token, currentUserInfos) => {
       console.error(err);
     });
 };
-export { fetchFriends, fetchRequests, accept, decline };
+const remove = (id, setFriendsLoading, currentUserInfos, token) => {
+  setFriendsLoading(true);
+  fetch(`${process.env.NEXT_PUBLIC_BASE_API}user/friend/remove/${id}`, {
+    method: "delete",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then((res) => {
+      if (res.status == 200) {
+        currentUserInfos();
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+};
+export { fetchFriends, fetchRequests, accept, decline, remove };
