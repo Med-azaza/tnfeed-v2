@@ -2,7 +2,9 @@ import styles from "./Sidebar.module.scss";
 import { useState, useEffect } from "react";
 import { Button, Avatar } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { LinearProgress } from "@mui/material";
+import { LinearProgress, IconButton, Menu, MenuItem } from "@mui/material";
+import { MoreHoriz } from "@material-ui/icons";
+import { fetchFriends, fetchRequests, accept, decline } from "./friendSystem";
 
 const useStyles = makeStyles(() => ({
   purple: {
@@ -16,82 +18,22 @@ export default function Sidebar({ userData, token, currentUserInfos }) {
   const [disabled, setDisabled] = useState(false);
   const [reqLoading, setReqLoading] = useState(true);
   const [friendsLoading, setFriendsLoading] = useState(true);
+  const [options, setOptions] = useState(null);
 
   const classes = useStyles();
 
-  const fetchFriends = () => {
-    setFriendsLoading(true);
-    setFriends([]);
-    if (userData.friends.length < 1) {
-      setFriendsLoading(false);
-    } else {
-      for (let id of userData.friends) {
-        fetch(`${process.env.NEXT_PUBLIC_BASE_API}user/${id}`, {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            setFriends((prev) => [...prev, data]);
-            userData.friends.indexOf(id) === userData.friends.length - 1 &&
-              setFriendsLoading(false);
-          })
-          .catch((err) => {
-            console.error(err);
-          });
-      }
-    }
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
   };
-
-  const fetchRequests = () => {
-    setReqLoading(true);
-    setRequests([]);
-    if (userData.requests.length < 1) {
-      setReqLoading(false);
-    } else {
-      for (let id of userData.requests) {
-        fetch(`${process.env.NEXT_PUBLIC_BASE_API}user/${id}`, {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            setRequests((prev) => [...prev, data]);
-            userData.requests.indexOf(id) === userData.requests.length - 1 &&
-              setReqLoading(false);
-          })
-          .catch((err) => {
-            console.error(err);
-          });
-      }
-    }
-  };
-  const accept = (id) => {
-    setDisabled(true);
-    fetch(`${process.env.NEXT_PUBLIC_BASE_API}user/accept/${id}`, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((res) => {
-        if (res.status == 200) {
-          currentUserInfos();
-          setDisabled(false);
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+  const handleClose = () => {
+    setAnchorEl(null);
   };
 
   useEffect(() => {
-    fetchRequests();
-    fetchFriends();
+    fetchRequests(setReqLoading, setRequests, userData, token);
+    fetchFriends(setFriendsLoading, setFriends, userData, token);
   }, [userData]);
 
   return (
@@ -121,10 +63,22 @@ export default function Sidebar({ userData, token, currentUserInfos }) {
               </p>
             </div>
             <div>
-              <Button disabled={disabled} onClick={() => accept(req._id)}>
+              <Button
+                disabled={disabled}
+                onClick={() =>
+                  accept(req._id, setDisabled, token, currentUserInfos)
+                }
+              >
                 accept
               </Button>
-              <Button disabled={disabled}>decline</Button>
+              <Button
+                disabled={disabled}
+                onClick={() =>
+                  decline(req._id, setDisabled, token, currentUserInfos)
+                }
+              >
+                decline
+              </Button>
             </div>
           </div>
         ))
@@ -151,6 +105,37 @@ export default function Sidebar({ userData, token, currentUserInfos }) {
                   </Avatar>
                 )}
                 <p>{fr.name}</p>
+                <IconButton
+                  aria-label="more"
+                  id="long-button"
+                  aria-controls="long-menu"
+                  aria-expanded={open ? "true" : undefined}
+                  aria-haspopup="true"
+                  onClick={(e) => {
+                    setOptions(fr._id);
+                    handleClick(e);
+                  }}
+                >
+                  <MoreHoriz />
+                </IconButton>
+                <Menu
+                  id="long-menu"
+                  MenuListProps={{
+                    "aria-labelledby": "long-button",
+                  }}
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={handleClose}
+                >
+                  <MenuItem
+                    onClick={() => {
+                      alert(options);
+                      handleClose();
+                    }}
+                  >
+                    remove
+                  </MenuItem>
+                </Menu>
               </div>
             ))}
           </div>
