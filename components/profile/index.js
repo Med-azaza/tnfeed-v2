@@ -11,7 +11,7 @@ import {
   DialogTitle,
   Button,
 } from "@mui/material";
-import { Edit } from "@material-ui/icons";
+import { Edit, PersonAddAlt, CheckRounded } from "@mui/icons-material";
 import { CircularProgress } from "@material-ui/core";
 import Post from "../post";
 
@@ -28,7 +28,6 @@ export default function Profile({
   setSelectedId,
   currentUserInfos,
 }) {
-  const [cookies, setCookie, removeCookie] = useCookies(["token"]);
   const [profileDial, setProfileDial] = useState(false);
   const [coverDial, setCoverDial] = useState(false);
   const [file, setFile] = useState(null);
@@ -36,6 +35,7 @@ export default function Profile({
   const [data, setData] = useState(userData);
   const [loading, setLoading] = useState(true);
   const [posts, setPosts] = useState([]);
+  const [addLoading, setAddLoading] = useState(false);
 
   const router = useRouter();
 
@@ -50,6 +50,22 @@ export default function Profile({
       .then((data) => {
         setPosts(data);
         setLoading(false);
+        setAddLoading(false);
+      })
+      .catch((err) => console.error(err));
+  };
+  const addFriend = () => {
+    setAddLoading(true);
+    fetch(`${process.env.NEXT_PUBLIC_BASE_API}user/add/${data._id}`, {
+      method: "post",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          currentUserInfos();
+        }
       })
       .catch((err) => console.error(err));
   };
@@ -73,7 +89,7 @@ export default function Profile({
     } else {
       fetchPosts(data._id);
     }
-  }, []);
+  }, [userData]);
 
   const updateCoverPic = () => {
     setUploadLoading(true);
@@ -163,7 +179,38 @@ export default function Profile({
           <Edit color="inherit" className={styles.profileIndicator} />
         )}
       </div>
-      <p className={styles.name}>{data.name}</p>
+      <p className={styles.name}>
+        {data.name}
+        {!current && (
+          <LoadingButton
+            disabled={data.friends.includes(userData._id) ? true : false}
+            onClick={addFriend}
+            loading={addLoading}
+            startIcon={
+              !data.friends.includes(userData._id) &&
+              data.requests.includes(userData._id) ? (
+                <CheckRounded />
+              ) : (
+                <PersonAddAlt />
+              )
+            }
+            variant="outlined"
+            sx={{
+              marginLeft: "10px",
+              color: "#a975ff",
+              borderColor: "#a975ff",
+              "&:hover": { borderColor: "#a975ff" },
+              textTransform: "capitalize",
+            }}
+          >
+            {!data.friends.includes(userData._id)
+              ? data.requests.includes(userData._id)
+                ? "request sent"
+                : "add friend"
+              : "friends"}
+          </LoadingButton>
+        )}
+      </p>
       <div className={styles.posts}>
         {posts.map((post) => (
           <Post
