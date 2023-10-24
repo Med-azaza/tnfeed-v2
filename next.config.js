@@ -5,6 +5,6 @@ module.exports = {
     includePaths: [path.join(__dirname, "styles")],
   },
   images: {
-    domains: ["tnfeed.herokuapp.com"],
+    domains: ["tnfeed-backend.onrender.com"],
   },
 };
